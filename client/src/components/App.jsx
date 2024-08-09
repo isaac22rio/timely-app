@@ -126,7 +126,7 @@ function App() {
     };
 	
 	return isAuthenticated ? (
-        <div className="App min-h-screen bg-gray-800 text-white pt-16">
+        <div className="App min-h-screen bg-primary text-white pt-16">
             <Navbar handleLogout={handleLogout} setPopupActive={setPopupActive} />
             <div className="p-8">
                 <h1 className="text-4xl font-bold mb-8">Welcome, {username}</h1>
