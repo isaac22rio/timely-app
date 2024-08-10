@@ -24,6 +24,10 @@ const accountSchema = new Schema({
             timestamp: {
                 type: String,
                 default: Date.now()
+            },
+            date:{
+                type: String,
+                required: [true, "Date is required"]
             }
         },
     ],

@@ -30,12 +30,12 @@ POST http://localhost:3001/task/new
 Content-Type: application/json
 
 {
-	"text": "poop"
+    "text": "Gym"
 }
 
 ###
 
-DELETE http://localhost:3001/task/delete/66b590b14c4bdd3685b660f2
+DELETE http://localhost:3001/task/delete/66b6bbce764f8764ad38df60
 
 ###
 
@@ -43,9 +43,12 @@ GET http://localhost:3001/task/done/60e585d86177f95ff0574323
 
 ###
 
-PUT http://localhost:3001/task/update/66b596384bdab3aad4990663
+PUT http://localhost:3001/task/update/66b6c2e66f7db28fc2c0476b
 Content-Type: application/json
 
 {
-	"text": "coding project"
+    "text": "Gym",
+    "year": "2024",
+    "month": "08",
+    "day": "10"
 }

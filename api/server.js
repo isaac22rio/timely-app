@@ -80,10 +80,20 @@ app.post('/task/new', async (req, res) => {
         return res.status(404).send("User not found");
     }
 
-    const { text } = req.body;
+    const { text, year, month, day } = req.body;
 
     if (!text) {
         return res.status(400).send("Task text is required");
+    }
+
+    let newDate;
+
+    if (!year || !month || !day) {
+        const timestamp = Date.now();
+        newDate = new Date(timestamp).toString();
+    } else {
+        // Construct the date from the provided inputs
+        newDate = new Date(year, month - 1, day).toString(); // month is 0-indexed
     }
 
     // Create a new task object
@@ -91,6 +101,7 @@ app.post('/task/new', async (req, res) => {
         text: text,
         isDone: false,
         timestamp: Date.now(),
+        date: newDate,  // store as ISO string
     };
 
     // Add the new task to the user's tasks array
@@ -183,14 +194,29 @@ app.put('/task/update/:id', async (req, res) => {
         // Find the index of the task with the matching _id
         const taskId = req.params.id;
         const taskIndex = user.tasks.findIndex(task => task._id.toString() === taskId);
-        const { text } = req.body;
+        const { text, year, month, day } = req.body;
 
         if (taskIndex === -1) {
             return res.status(404).send("Task not found");
         }
 
+        if (!text) {
+            return res.status(400).send("Task text is required");
+        }
+
+        let newDate;
+
+        if (!year || !month || !day) {
+            const timestamp = Date.now();
+            newDate = new Date(timestamp).toString();
+        } else {
+            // Construct the date from the provided inputs
+            newDate = new Date(year, month - 1, day).toString(); // month is 0-indexed
+        }
+
         // update the text value of the selected task
         user.tasks[taskIndex].text = text;
+        user.tasks[taskIndex].date = newDate;
         const updatedTask = user.tasks[taskIndex]
 
         // Save the updated user document
